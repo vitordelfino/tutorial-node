@@ -36,6 +36,7 @@
     "@types/cors": "^2.8.9",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.9",
+    "@types/mongodb": "^3.6.3",
     "@types/node": "^14.14.20",
     "@types/winston": "^2.4.4",
     "babel-eslint": "^10.1.0",
@@ -48,9 +49,12 @@
     "express-async-errors": "^3.1.1",
     "express-handler-errors": "^2.3.1",
     "express-request-id": "^1.4.1",
+    "mongodb": "^3.6.3",
     "morgan-body": "^2.6.4",
+    "reflect-metadata": "^0.1.13",
     "ts-node-dev": "^1.1.1",
     "tsconfig-paths": "^3.9.0",
+    "typeorm": "^0.2.30",
     "winston": "^3.3.3"
   },
   "husky": {

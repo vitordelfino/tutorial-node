@@ -14,6 +14,8 @@ import logger from '@middlewares/logger';
 
 import routes from './routes';
 
+import 'reflect-metadata';
+
 class App {
   public readonly app: Application;
 
@@ -23,8 +25,8 @@ class App {
     this.app = express();
     this.session = createNamespace('request'); // é aqui que vamos armazenar o id da request
     this.middlewares();
-    this.errorHandle();
     this.routes();
+    this.errorHandle();
   }
 
   /**
