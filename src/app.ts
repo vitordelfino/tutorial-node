@@ -13,7 +13,7 @@ import morgan from 'morgan-body';
 import logger from '@middlewares/logger';
 
 import routes from './routes';
-
+import swaggerRoutes from './swagger.routes';
 import 'reflect-metadata';
 
 class App {
@@ -25,6 +25,7 @@ class App {
     this.app = express();
     this.session = createNamespace('request'); // é aqui que vamos armazenar o id da request
     this.middlewares();
+    this.configSwagger();
     this.routes();
     this.errorHandle();
   }
@@ -74,6 +75,11 @@ class App {
         new ErrorHandler().handle(err, res, next, logger as any);
       }
     );
+  }
+
+  private async configSwagger(): Promise<void> {
+    const swagger = await swaggerRoutes.load();
+    this.app.use(swagger);
   }
 
   /**

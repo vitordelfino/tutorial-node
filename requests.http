@@ -9,6 +9,17 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Vitor",
+  "document": "123",
+  "password": "1234"
+}
+
+###
+
 GET http://localhost:3000/api/users/6001abf43d4675bc1aa693bc HTTP/1.1
 
 ###
