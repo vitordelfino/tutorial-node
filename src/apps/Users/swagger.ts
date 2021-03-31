@@ -1,46 +1,5 @@
 const paths = {
   '/users/{id}': {
-    get: {
-      tags: ['User'],
-      summary: 'User',
-      description: 'Get user by Id',
-      security: [
-        {
-          Bearer: [],
-        },
-      ],
-      parameters: [
-        {
-          in: 'path',
-          name: 'id',
-          required: true,
-          schema: {
-            type: 'string',
-          },
-          description: 'uuid',
-        },
-      ],
-      responses: {
-        200: {
-          description: 'OK',
-          schema: {
-            $ref: '#/definitions/User',
-          },
-        },
-        404: {
-          description: 'Not Found',
-          schema: {
-            $ref: '#/definitions/ErrorResponse',
-          },
-        },
-        500: {
-          description: 'Internal Server Error',
-          schema: {
-            $ref: '#/definitions/ErrorResponse',
-          },
-        },
-      },
-    },
     put: {
       tags: ['User'],
       summary: 'User',
@@ -130,6 +89,47 @@ const paths = {
     },
   },
   '/users': {
+    get: {
+      tags: ['User'],
+      summary: 'User',
+      description: 'Get user by Id',
+      security: [
+        {
+          Bearer: [],
+        },
+      ],
+      parameters: [
+        {
+          in: 'path',
+          name: 'id',
+          required: true,
+          schema: {
+            type: 'string',
+          },
+          description: 'uuid',
+        },
+      ],
+      responses: {
+        200: {
+          description: 'OK',
+          schema: {
+            $ref: '#/definitions/User',
+          },
+        },
+        404: {
+          description: 'Not Found',
+          schema: {
+            $ref: '#/definitions/ErrorResponse',
+          },
+        },
+        500: {
+          description: 'Internal Server Error',
+          schema: {
+            $ref: '#/definitions/ErrorResponse',
+          },
+        },
+      },
+    },
     post: {
       tags: ['User'],
       summary: 'User',

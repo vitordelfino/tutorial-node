@@ -14,7 +14,7 @@ export const findOne = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
-  const response = await UserService.findOne(req.params.id);
+  const response = await UserService.findOne(req.user);
   return res.json(response);
 };
 

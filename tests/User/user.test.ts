@@ -1,4 +1,5 @@
 import { MockProxy } from 'jest-mock-extended';
+import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import { MongoRepository } from 'typeorm';
 
@@ -12,10 +13,27 @@ describe('## User Module ##', () => {
   >;
 
   describe('## GET ##', () => {
+    // Aqui estamos restaurando o mock
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
     test('should return error when user does not exists', async () => {
+      /**
+       * Vamos espionar a função verify,
+       * a mesma utilizada no middleware e modificar o seu comportamento
+       * é um outro jeito de mocar funções com jest
+       *
+       */
+      const spy = jest.spyOn(jwt, 'verify');
+      spy.mockReturnValue({
+        _id: '6064b5560e12df0b9eccbcee',
+        document: '42780908890',
+        name: 'Vitor',
+      } as any);
       repository.findOne.mockResolvedValue(null);
       await request(app)
-        .get('/api/users/some-id')
+        .get('/api/users')
+        .set('Authorization', 'token')
         .expect(404, {
           errors: [
             {
@@ -28,13 +46,22 @@ describe('## User Module ##', () => {
     });
 
     test('should return an user', async () => {
+      const spy = jest.spyOn(jwt, 'verify');
+      spy.mockReturnValue({
+        _id: '6064b5560e12df0b9eccbcee',
+        document: '42780908890',
+        name: 'Vitor',
+      } as any);
       const user = {
-        _id: '6001abf43d4675bc1aa693bc',
+        _id: '6064b5560e12df0b9eccbcee',
         name: 'Teste',
         password: '1234',
       };
       repository.findOne.mockResolvedValue(user);
-      await request(app).get('/api/users/some-id').expect(200, user);
+      await request(app)
+        .get('/api/users')
+        .set('Authorization', 'token')
+        .expect(200, user);
     });
   });
 

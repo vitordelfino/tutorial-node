@@ -1,8 +1,9 @@
+/* eslint-disable no-underscore-dangle */
 import { CustomError } from 'express-handler-errors';
 import { ObjectID } from 'mongodb';
 import { getConnection, MongoRepository } from 'typeorm';
 
-import { dbConnections } from '@config/index';
+import { dbConnections, IUserRequest } from '@config/index';
 
 import { Users } from './Users.entity';
 
@@ -30,8 +31,8 @@ class UserService {
     }
   }
 
-  async findOne(_id: string): Promise<Users> {
-    const user = await this.repository.findOne(_id);
+  async findOne(userAuthenticated: IUserRequest): Promise<Users> {
+    const user = await this.repository.findOne(userAuthenticated._id);
     if (!user)
       throw new CustomError({
         code: 'USER_NOT_FOUND',
